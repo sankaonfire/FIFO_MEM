@@ -1,23 +1,17 @@
-
  // 1. The timescale directive  
- `timescale 10 ps/ 10 ps   
-
+ `timescale     10 ps/ 10 ps   
  // 2. Preprocessor Directives  
- `define DELAY 10 
- 
- // 3. Module initialization
- module My_Main_FIFO_TB; 
-
+ `define          DELAY 10  
+ // 3. Include Statements   
+ module     My_Main_FIFO_TB;  
  // 4. Parameter definitions  
  parameter     ENDTIME      = 40000;  
-
  // 5. DUT Input regs  
  reg     clk;  
  reg     rst_n;  
  reg     wr;  
  reg     rd;  
  reg     [7:0] data_in;  
-
  // 6. DUT Output wires  
  wire     [7:0] data_out;  
  wire     fifo_empty;  
@@ -26,16 +20,15 @@
  wire     fifo_overflow;  
  wire     fifo_underflow;  
  integer i;  
-
  // 7. DUT Instantiation
-My_Main_FIFO F1 (
+   
+ My_Main_FIFO tb (
    // Outputs  
    data_out, fifo_full, fifo_empty, fifo_threshold, fifo_overflow,   
    fifo_underflow,   
    // Inputs  
    clk, rst_n, wr, rd, data_in  
    );  
- 
  // 8. Initial Conditions  
  initial  
       begin  
@@ -45,8 +38,6 @@ My_Main_FIFO F1 (
            rd     = 1'b0;  
            data_in     = 8'd0;  
       end  
-
- 
  // 9. Generating Test Vectors  
  initial  
       begin  
@@ -94,7 +85,6 @@ My_Main_FIFO F1 (
            end  
       end  
  endtask  
- 
  // 10. Debug fifo  
  task debug_fifo;  
       begin  
@@ -107,7 +97,6 @@ My_Main_FIFO F1 (
            $monitor("TIME = %d, wr = %b, rd = %b, data_in = %h",$time, wr, rd, data_in);  
       end  
  endtask  
- 
  // 11. Self-Checking  
  reg [5:0] waddr, raddr;  
  reg [7:0] mem[64:0];  
@@ -135,7 +124,6 @@ My_Main_FIFO F1 (
            end  
       end  
  end  
- 
  //12. Determines the simulation limit  
  task endsimulation;  
       begin  
@@ -144,6 +132,4 @@ My_Main_FIFO F1 (
            $finish;  
       end  
  endtask  
- 
  endmodule
- 
